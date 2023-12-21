@@ -1,13 +1,13 @@
 dataset:
   name: mvtec
   format: mvtec
-  path: ./datasets/MVTec
-  category: bottle
+  path: ./datasets/custom
+  category: pcb
   task: segmentation
-  train_batch_size: 32
-  eval_batch_size: 32
+  train_batch_size: 16
+  eval_batch_size: 16
   num_workers: 8
-  image_size: 256 # dimensions to which images are resized (mandatory)
+  image_size: 768 # dimensions to which images are resized (mandatory)
   center_crop: null # dimensions to which images are center-cropped after resizing (optional)
   normalization: imagenet # data distribution to which the images will be normalized: [none, imagenet]
   transform_config:
@@ -18,9 +18,9 @@ dataset:
   val_split_mode: same_as_test # options: [same_as_test, from_test, synthetic]
   val_split_ratio: 0.5 # fraction of train/test images held out for validation (usage depends on val_split_mode)
   tiling:
-    apply: false
-    tile_size: null
-    stride: null
+    apply: true
+    tile_size: 256
+    stride: 256
     remove_border_count: 0
     use_random_tiling: False
     random_tile_count: 16
@@ -79,7 +79,7 @@ trainer:
   check_val_every_n_epoch: 1 # Don't validate before extracting features.
   fast_dev_run: false
   accumulate_grad_batches: 1
-  max_epochs: 1
+  max_epochs: 3
   min_epochs: null
   max_steps: -1
   min_steps: null
